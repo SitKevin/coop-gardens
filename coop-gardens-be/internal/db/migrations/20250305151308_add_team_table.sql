@@ -10,5 +10,5 @@ CREATE TABLE team (
 
 -- +goose Down
 -- +goose StatementBegin
-DROP TABLE team
+DROP TABLE team;
 -- +goose StatementEnd
