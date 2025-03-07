@@ -1,7 +1,8 @@
-version: '3.8'
+version: '3.12'
 
 services:
-  db:
+  coop_gardens_db:
+    container_name: coop_gardens_db 
     image: postgres:latest
     restart: always
     environment:
@@ -11,15 +12,10 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./data:/var/lib/postgresql/data
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
+      - pgdata:/var/lib/postgresql/data
 
   pgadmin:
+    container_name: pgadmin
     image: dpage/pgadmin4
     restart: always
     environment:
