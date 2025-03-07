@@ -5,7 +5,6 @@
     "husky": "^9.1.7"
   },
   "scripts": {
-    "husky-setup": "husky",
     "prepare": "husky"
   }
 }
