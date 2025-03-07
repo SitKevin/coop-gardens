@@ -1,17 +1,32 @@
 version: '3.8'
 
 services:
-  psql:
+  db:
     image: postgres:latest
-    container_name: psql
+    restart: always
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASS}
-      POSTGRES_DB: postgres
+      POSTGRES_USER: coop_gardens
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: coop_gardens
     ports:
       - "5432:5432"
     volumes:
       - ./data:/var/lib/postgresql/data
 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
-      
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com  # Email đăng nhập pgAdmin
+      PGADMIN_DEFAULT_PASSWORD: admin          # Mật khẩu đăng nhập pgAdmin
+    ports:
+      - "5050:80"  # Mở cổng 5050 trên máy host
+
+volumes:
+  pgdata:
