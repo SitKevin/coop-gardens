@@ -13,6 +13,10 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - coop-gardens-network
+    command: ["postgres", "-c", "listen_addresses=*"] # Cho connect 
 
   pgadmin:
     container_name: pgadmin
@@ -23,6 +27,14 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin          # Mật khẩu đăng nhập pgAdmin
     ports:
       - "5050:80"  # Mở cổng 5050 trên máy host
+    networks:
+      - coop-gardens-network
 
 volumes:
   pgdata:
+
+networks:
+  coop-gardens-network:
+    driver: bridge
+
+
