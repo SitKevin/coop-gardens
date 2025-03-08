@@ -9,23 +9,16 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
-	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
-// @title Swagger Example API
+// @title Swagger API Test
 // @version 1.0
-// @description This is a sample server Petstore server.
-// @termsOfService http://swagger.io/terms/
+// @description This is a sample API Coop-Gardens server.
+// @host localhost:8080
+// @BasePath /api/v1
 
-// @contact.name API Support
-// @contact.url http://www.swagger.io/support
-// @contact.email support@swagger.io
-
-// @license.name Apache 2.0
-// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
-
-// @host petstore.swagger.io
-// @BasePath /v2
+// @host localhost:8080
+// @BasePath /v1
 func main() {
 	// Load .env
 	err := godotenv.Load()
@@ -36,12 +29,13 @@ func main() {
 
 	e := echo.New()
 
-	e.GET("/swagger/*", echoSwagger.WrapHandler)
+	// Group API v1
+	apiV1 := e.Group("/api/v1")
+
+	routers.LoginRoutes(apiV1)
 
 	// Kết nối DB
 	config.InitDB()
-	// Khởi tạo routes
-	routers.LoginRoutes(e)
 
 	log.Println("🚀 Server đang chạy tại: http://localhost:8080")
 	e.Start(":8080")

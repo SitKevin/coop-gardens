@@ -8,9 +8,10 @@
 U should focus `docker-compose.yml`. Don't care `Dockerfile`
 
 **Command:**
-```bash
-docker-compose down
-docker-compose up -d
+```
+   bash
+   docker-compose down
+   docker-compose up -d
 ```
 
 Go on: [pgadmi4-Website](http://localhost:5050/browser/)

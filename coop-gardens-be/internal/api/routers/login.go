@@ -6,6 +6,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func LoginRoutes(e *echo.Echo) {
-	e.POST("/login", handlers.Login)
+// Sau nay config chinh lai thanh echo.echo
+func LoginRoutes(g *echo.Group) {
+	g.POST("/login", handlers.Login)
 }
