@@ -1,7 +1,9 @@
 package usecase
 
 import (
+	"errors"
 	_ "errors"
+	_ "os"
 
 	"coop-gardens-be/internal/api/middlewares"
 	"coop-gardens-be/internal/repository"
@@ -21,6 +23,10 @@ func Login(email, password string) (string, error) {
 	// if err != nil {
 	// 	return "", errors.New("Invalid password")
 	// }
+
+	if user.Password != password {
+		return "", errors.New("Invalid password")
+	}
 
 	token, err := middlewares.GenerateToken(user.ID, user.Username, user.Email)
 

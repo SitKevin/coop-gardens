@@ -1,22 +1,13 @@
 package handlers
 
 import (
+	"log"
 	"net/http"
 
 	"coop-gardens-be/usecase"
 
 	"github.com/labstack/echo/v4"
 )
-
-// @Summary Login
-// @Description Login
-// @Tags auth
-// @Accept json
-// @Produce json
-// @Param request body LoginRequest true "Username and password"
-// @Success 200 {object} map[string]string
-// @Failure 400 {object} map[string]string
-// @Router /login [post]
 
 type LoginRequest struct {
 	Email    string `json:"email" validate:"required,email"`
@@ -27,13 +18,19 @@ func Login(c echo.Context) error {
 	var req LoginRequest
 
 	if err := c.Bind(&req); err != nil {
+		log.Println("Bind error:", err)
 		return c.JSON(http.StatusBadRequest, map[string]string{"message": err.Error()})
 	}
 
+	log.Println("Login attempt for:", req.Email)
+
 	token, err := usecase.Login(req.Email, req.Password)
 	if err != nil {
+		log.Println("Login failed:", err)
 		return c.JSON(http.StatusBadRequest, map[string]string{"message": err.Error()})
 	}
+
+	log.Println("Login successful for:", req.Email)
 
 	return c.JSON(http.StatusOK, map[string]string{"token": token})
 }
