@@ -6,5 +6,8 @@
   },
   "scripts": {
     "prepare": "husky"
+  },
+  "dependencies": {
+    "next-themes": "^0.4.5"
   }
 }
